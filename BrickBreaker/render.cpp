@@ -16,10 +16,43 @@ void drawPaddle(SDL_Renderer* renderer, Paddle& paddle) {
 	SDL_RenderFillRect(renderer, paddle.getPaddle());
 }
 
-void render(SDL_Renderer* renderer, std::vector<Brick> bricks, Paddle& paddle) {
+void drawBallPoints(SDL_Renderer* renderer, int center_x, int center_y, int x_diff, int y_diff) {
+	SDL_RenderDrawPoint(renderer, center_x + x_diff, center_y + y_diff);
+	SDL_RenderDrawPoint(renderer, center_x + x_diff, center_y - y_diff);
+	SDL_RenderDrawPoint(renderer, center_x - x_diff, center_y + y_diff);
+	SDL_RenderDrawPoint(renderer, center_x - x_diff, center_y - y_diff);
+
+	SDL_RenderDrawPoint(renderer, center_x + y_diff, center_y + x_diff);
+	SDL_RenderDrawPoint(renderer, center_x + y_diff, center_y - x_diff);
+	SDL_RenderDrawPoint(renderer, center_x - y_diff, center_y + x_diff);
+	SDL_RenderDrawPoint(renderer, center_x - y_diff, center_y - x_diff);
+}
+
+void drawBall(SDL_Renderer* renderer, Ball& ball) {
+	int x = 0, y = ball.getRadius();
+	float decision_param = 1 - y;
+
+	std::vector<int> center = ball.getCenter();
+	drawBallPoints(renderer, center[0], center[1], x, y);
+
+	while (y > x) {
+		x += 1;
+
+		if (decision_param >= 0) {
+			y -= 1;
+			decision_param += (x * 2) - (y * 2) + 1;
+		}
+		else {
+			decision_param += (x * 2) + 1;
+		}
+		drawBallPoints(renderer, center[0], center[1], x, y);
+	}
+}
+
+void render(SDL_Renderer* renderer, std::vector<Brick> bricks, Paddle& paddle, Ball& ball) {
 	drawBricks(renderer, bricks);
 	drawPaddle(renderer, paddle);
-	//drawBall(renderer, ball);
+	drawBall(renderer, ball);
 	SDL_RenderPresent(renderer);
 
 

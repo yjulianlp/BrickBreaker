@@ -21,7 +21,7 @@ private:
 	int x_velocity;
 	int y_velocity;
 public:
-	Ball(SDL_Rect* hitbox, int radius, int center_x, int center_y, int x_velocity, int y_velocity);
+	Ball(int radius, int center_x, int center_y, int x_velocity, int y_velocity);
 	SDL_Rect* getHitbox();
 	int getRadius();
 	std::vector<int> getCenter();

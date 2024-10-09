@@ -8,4 +8,8 @@ void drawBricks(SDL_Renderer* renderer, std::vector<Brick> bricks);
 
 void drawPaddle(SDL_Renderer* renderer, Paddle& paddle);
 
-void render(SDL_Renderer* renderer, std::vector<Brick> bricks, Paddle& paddle);
+void drawBall(SDL_Renderer* renderer, Ball& ball);
+
+void drawBallPoints(SDL_Renderer* renderer, int center_x, int center_y, int x_diff, int y_diff);
+
+void render(SDL_Renderer* renderer, std::vector<Brick> bricks, Paddle& paddle, Ball& ball);

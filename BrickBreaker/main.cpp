@@ -26,9 +26,13 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
+	//paddle
 	Paddle paddle = Paddle((SCREEN_WIDTH - PADDLE_WIDTH) / 2, SCREEN_HEIGHT - (SCREEN_HEIGHT / 6), PADDLE_WIDTH, PADDLE_HEIGHT);
 
-	render(gRenderer, breakable_blocks, paddle);
+	//ball
+	Ball ball = Ball(BALL_RADIUS, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, BALL_STARTING_X_VELOCITY, BALL_STARTING_Y_VELOCITY);
+
+	render(gRenderer, breakable_blocks, paddle, ball);
 
 	while (running) {
 		while (SDL_PollEvent(&event) != 0) {

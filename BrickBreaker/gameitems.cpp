@@ -22,8 +22,12 @@ bool Paddle::isColliding(SDL_Rect* object) {
 	return (SDL_HasIntersection(paddle, object));
 }
 
-Ball::Ball(SDL_Rect* new_hitbox, int ball_radius, int ball_center_x, int ball_center_y, int ball_x_velocity, int ball_y_velocity) {
-	hitbox = new_hitbox;
+Ball::Ball(int ball_radius, int ball_center_x, int ball_center_y, int ball_x_velocity, int ball_y_velocity) {
+	hitbox = (SDL_Rect*)malloc(sizeof(SDL_Rect));
+
+	if (hitbox != NULL) {
+		*hitbox = { ball_center_x, ball_center_y, ball_radius*2, ball_radius*2 };
+	}
 	radius = ball_radius;
 	center_x = ball_center_x;
 	center_y = ball_center_y;
