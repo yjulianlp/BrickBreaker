@@ -16,6 +16,7 @@ int main(int argc, char* argv[]) {
 
 	std::vector<Brick> breakable_blocks;
 
+	//breakable blocks
 	int layers = NUM_BRICKS / (SCREEN_WIDTH / BRICK_WIDTH);
 	for (int i = 0; i < layers; i++) {
 		int layer_y = i * BRICK_HEIGHT;
@@ -24,9 +25,10 @@ int main(int argc, char* argv[]) {
 			breakable_blocks.push_back(Brick(brick_x, layer_y, BRICK_WIDTH, BRICK_HEIGHT));
 		}
 	}
-	std::cout << breakable_blocks.size();
 
-	renderBricks(gRenderer, breakable_blocks);
+	Paddle paddle = Paddle((SCREEN_WIDTH - PADDLE_WIDTH) / 2, SCREEN_HEIGHT - (SCREEN_HEIGHT / 6), PADDLE_WIDTH, PADDLE_HEIGHT);
+
+	render(gRenderer, breakable_blocks, paddle);
 
 	while (running) {
 		while (SDL_PollEvent(&event) != 0) {

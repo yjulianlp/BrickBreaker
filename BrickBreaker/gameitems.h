@@ -6,7 +6,7 @@ class Paddle {
 private:
 	SDL_Rect* paddle;
 public:
-	Paddle(SDL_Rect* paddle);
+	Paddle(int x, int y, int w, int h);
 	SDL_Rect* getPaddle();
 	void setPaddle(SDL_Rect* new_paddle);
 	bool isColliding(SDL_Rect* object);

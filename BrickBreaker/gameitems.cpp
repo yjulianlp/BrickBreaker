@@ -2,8 +2,12 @@
 #include "gameinfo.h"
 #include <vector>
 
-Paddle::Paddle(SDL_Rect* new_paddle) {
-	paddle = new_paddle;
+Paddle::Paddle(int x, int y, int w, int h) {
+	paddle = (SDL_Rect*)malloc(sizeof(SDL_Rect));
+
+	if (paddle != NULL) {
+		*paddle = { x, y, w, h };
+	}
 }
 
 SDL_Rect* Paddle::getPaddle() {
