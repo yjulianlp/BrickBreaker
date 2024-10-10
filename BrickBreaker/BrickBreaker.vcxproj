@@ -135,11 +135,13 @@
     <ClCompile Include="gameitems.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="render.cpp" />
+    <ClCompile Include="updateposition.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameinfo.h" />
     <ClInclude Include="gameitems.h" />
     <ClInclude Include="render.h" />
+    <ClInclude Include="updateposition.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

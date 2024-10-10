@@ -50,10 +50,10 @@ void drawBall(SDL_Renderer* renderer, Ball& ball) {
 }
 
 void render(SDL_Renderer* renderer, std::vector<Brick> bricks, Paddle& paddle, Ball& ball) {
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 1);
+	SDL_RenderClear(renderer);
 	drawBricks(renderer, bricks);
 	drawPaddle(renderer, paddle);
 	drawBall(renderer, ball);
 	SDL_RenderPresent(renderer);
-
-
 }

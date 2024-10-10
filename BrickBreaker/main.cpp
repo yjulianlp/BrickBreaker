@@ -3,6 +3,7 @@
 #include "gameinfo.h"
 #include "gameitems.h"
 #include "render.h"
+#include "updateposition.h"
 
 int main(int argc, char* argv[]) {
 	bool running = true;
@@ -30,7 +31,7 @@ int main(int argc, char* argv[]) {
 	Paddle paddle = Paddle((SCREEN_WIDTH - PADDLE_WIDTH) / 2, SCREEN_HEIGHT - (SCREEN_HEIGHT / 6), PADDLE_WIDTH, PADDLE_HEIGHT);
 
 	//ball
-	Ball ball = Ball(BALL_RADIUS, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, BALL_STARTING_X_VELOCITY, BALL_STARTING_Y_VELOCITY);
+	Ball ball = Ball(BALL_RADIUS, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4, INITIAL_BALL_SPEED, INITIAL_BALL_ANGLE);
 
 	render(gRenderer, breakable_blocks, paddle, ball);
 
@@ -40,6 +41,10 @@ int main(int argc, char* argv[]) {
 				running = false;
 			}
 		}
+		updateBall(ball, 1.0);
+		render(gRenderer, breakable_blocks, paddle, ball);
+
+		SDL_Delay(FRAME_DELAY);
 	}
 
 	return 0;

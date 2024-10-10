@@ -22,7 +22,7 @@ bool Paddle::isColliding(SDL_Rect* object) {
 	return (SDL_HasIntersection(paddle, object));
 }
 
-Ball::Ball(int ball_radius, int ball_center_x, int ball_center_y, int ball_x_velocity, int ball_y_velocity) {
+Ball::Ball(int ball_radius, int ball_center_x, int ball_center_y, int ball_speed, float ball_angle) {
 	hitbox = (SDL_Rect*)malloc(sizeof(SDL_Rect));
 
 	if (hitbox != NULL) {
@@ -31,8 +31,10 @@ Ball::Ball(int ball_radius, int ball_center_x, int ball_center_y, int ball_x_vel
 	radius = ball_radius;
 	center_x = ball_center_x;
 	center_y = ball_center_y;
-	x_velocity = ball_x_velocity;
-	y_velocity = ball_y_velocity;
+	speed = ball_speed;
+	x_velocity = ball_speed * cos(ball_angle);
+	y_velocity = ball_speed * sin(ball_angle);
+	angle = ball_angle;
 }
 
 SDL_Rect* Ball::getHitbox() {
@@ -51,6 +53,36 @@ std::vector<int> Ball::getVelocity() {
 	std::vector<int> velocity = { x_velocity, y_velocity };
 	return velocity;
 }
+
+void Ball::setXVelocity(int new_x_velocity) {
+	x_velocity = new_x_velocity;
+}
+
+void Ball::setYVelocity(int new_y_velocity) {
+	y_velocity = new_y_velocity;
+}
+
+int Ball :: getSpeed() {
+	return speed;
+}
+
+void Ball::setSpeed(int new_speed) {
+	speed = new_speed;
+}
+
+float Ball::getAngle() {
+	return angle;
+}
+
+void Ball::setAngle(float new_angle) {
+	angle = new_angle;
+}
+
+void Ball::movePosition(float time) {
+	center_x += x_velocity * time;
+	center_y += y_velocity * time;
+}
+
 
 Brick::Brick(int x, int y, int w, int h) {
 	brick = (SDL_Rect*)malloc(sizeof(SDL_Rect));
