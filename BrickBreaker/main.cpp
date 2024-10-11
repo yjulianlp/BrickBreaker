@@ -40,8 +40,9 @@ int main(int argc, char* argv[]) {
 			if (event.type == SDL_QUIT) {
 				running = false;
 			}
+			updatePaddle(paddle, &event);
 		}
-		updateBall(ball, 1.0);
+		updateBall(ball, paddle, 1.0);
 		render(gRenderer, breakable_blocks, paddle, ball);
 
 		SDL_Delay(FRAME_DELAY);

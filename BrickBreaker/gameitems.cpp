@@ -22,11 +22,16 @@ bool Paddle::isColliding(SDL_Rect* object) {
 	return (SDL_HasIntersection(paddle, object));
 }
 
+void Paddle::moveX(int speed) {
+	paddle->x += speed;
+}
+
 Ball::Ball(int ball_radius, int ball_center_x, int ball_center_y, int ball_speed, float ball_angle) {
 	hitbox = (SDL_Rect*)malloc(sizeof(SDL_Rect));
 
 	if (hitbox != NULL) {
-		*hitbox = { ball_center_x, ball_center_y, ball_radius*2, ball_radius*2 };
+		int hitbox_side_length = ball_radius * 3;
+		*hitbox = { ball_center_x - (hitbox_side_length)/2, ball_center_y - (hitbox_side_length) / 2, hitbox_side_length, hitbox_side_length };
 	}
 	radius = ball_radius;
 	center_x = ball_center_x;
@@ -81,6 +86,9 @@ void Ball::setAngle(float new_angle) {
 void Ball::movePosition(float time) {
 	center_x += x_velocity * time;
 	center_y += y_velocity * time;
+
+	hitbox->x += x_velocity * time;
+	hitbox->y += y_velocity * time;
 }
 
 

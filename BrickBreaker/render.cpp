@@ -16,6 +16,11 @@ void drawPaddle(SDL_Renderer* renderer, Paddle& paddle) {
 	SDL_RenderFillRect(renderer, paddle.getPaddle());
 }
 
+void drawHitbox(SDL_Renderer* renderer, SDL_Rect* hitbox) {
+	SDL_SetRenderDrawColor(renderer, 255, 182, 193, 0.2);
+	SDL_RenderDrawRect(renderer, hitbox);
+}
+
 void drawBallPoints(SDL_Renderer* renderer, int center_x, int center_y, int x_diff, int y_diff) {
 	SDL_RenderDrawPoint(renderer, center_x + x_diff, center_y + y_diff);
 	SDL_RenderDrawPoint(renderer, center_x + x_diff, center_y - y_diff);
@@ -55,5 +60,6 @@ void render(SDL_Renderer* renderer, std::vector<Brick> bricks, Paddle& paddle, B
 	drawBricks(renderer, bricks);
 	drawPaddle(renderer, paddle);
 	drawBall(renderer, ball);
+	drawHitbox(renderer, ball.getHitbox());
 	SDL_RenderPresent(renderer);
 }

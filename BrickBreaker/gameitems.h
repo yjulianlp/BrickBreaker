@@ -10,6 +10,7 @@ public:
 	SDL_Rect* getPaddle();
 	void setPaddle(SDL_Rect* new_paddle);
 	bool isColliding(SDL_Rect* object);
+	void moveX(int speed);
 };
 
 class Ball {
