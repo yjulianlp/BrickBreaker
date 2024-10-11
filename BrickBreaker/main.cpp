@@ -41,6 +41,7 @@ int main(int argc, char* argv[]) {
 				running = false;
 			}
 			updatePaddle(paddle, &event);
+			
 		}
 		updateBall(ball, paddle, breakable_blocks, 1.0);
 		render(gRenderer, breakable_blocks, paddle, ball);

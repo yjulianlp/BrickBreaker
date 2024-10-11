@@ -67,7 +67,7 @@ void Ball::setYVelocity(int new_y_velocity) {
 	y_velocity = new_y_velocity;
 }
 
-int Ball :: getSpeed() {
+int Ball::getSpeed() {
 	return speed;
 }
 
@@ -91,6 +91,13 @@ void Ball::movePosition(float time) {
 	hitbox->y += y_velocity * time;
 }
 
+void Ball::setPosition(int new_x_pos, int new_y_pos) {
+	center_x = new_x_pos;
+	center_y = new_y_pos;
+	int hitbox_side_length = radius * 3;
+	hitbox->x = center_x - (hitbox_side_length) / 2;
+	hitbox->y = center_y - (hitbox_side_length) / 2;
+}
 
 Brick::Brick(int x, int y, int w, int h) {
 	brick = (SDL_Rect*)malloc(sizeof(SDL_Rect));

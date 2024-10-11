@@ -3,6 +3,7 @@
 #include "updateposition.h"
 #include <iostream>
 #include <cmath>
+#include <cstdlib>
 
 void updatePaddle(Paddle& paddle, SDL_Event* event) {
 	const Uint8* pressed_keys = SDL_GetKeyboardState(NULL);
@@ -18,16 +19,15 @@ void updatePaddle(Paddle& paddle, SDL_Event* event) {
 		}
 	}
 }
+
 void updateBall(Ball& ball, Paddle& paddle, std::vector<Brick> bricks, float time) {
-	std::vector<int> pos = ball.getCenter();
-	//std::cout << "current angle: " << ball.getAngle() << "\n";
 	ball.setXVelocity(ball.getSpeed() * cos(ball.getAngle()));
 	ball.setYVelocity(ball.getSpeed() * sin(ball.getAngle()));
 	std::vector<int> velo = ball.getVelocity();
 
 	ball.movePosition(time);
 
-	pos = ball.getCenter();
+	std::vector<int> pos = ball.getCenter();
 	if (pos[0]-BALL_RADIUS <= 0 || pos[0]+BALL_RADIUS >= SCREEN_WIDTH) {
 		ball.setAngle(PI - ball.getAngle());
 	}
@@ -37,8 +37,30 @@ void updateBall(Ball& ball, Paddle& paddle, std::vector<Brick> bricks, float tim
 
 	SDL_Rect* paddle_rect = paddle.getPaddle();
 	int is_intersecting = checkBallRectIntersection(ball, paddle_rect);
-	if (is_intersecting) {
+	float temp_angle;
+	switch (is_intersecting) {
+	case 1: //left side
+		ball.setAngle(PI - ball.getAngle());
+		ball.setPosition(paddle_rect->x - ball.getRadius() - 5, pos[1]);
+		break;
+	case 2: //right side
+		ball.setAngle(PI - ball.getAngle());
+		ball.setPosition((paddle_rect->x + paddle_rect->w) + ball.getRadius() + 5, pos[1]);
+		break;
+	case 3: //top
+		temp_angle = (-ball.getAngle()) + ((rand() % 31) - 15) * (PI / 180.0);
+		if (temp_angle == 0 || temp_angle == PI) {
+			temp_angle = -ball.getAngle();
+		}
+		ball.setAngle(temp_angle);
+		ball.setPosition(pos[0], paddle_rect->y - ball.getRadius() - 5);
+		break;
+	case 4: //bottom
 		ball.setAngle(-ball.getAngle());
+		ball.setPosition(pos[0], (paddle_rect->y + paddle_rect->h) + ball.getRadius() + 5);
+		break;
+	default:
+		break;
 	}
 
 	for (int i = 0; i < bricks.size(); i++) {
@@ -58,8 +80,6 @@ void updateBall(Ball& ball, Paddle& paddle, std::vector<Brick> bricks, float tim
 			break;
 		}
 	}
-
-
 }
 
 int checkBallRectIntersection(Ball& ball, SDL_Rect* rect) {

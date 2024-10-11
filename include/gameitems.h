@@ -36,6 +36,7 @@ public:
 	float getAngle();
 	void setAngle(float new_angle);
 	void movePosition(float time);
+	void setPosition(int x_pos, int y_pos);
 };
 
 class Brick {

@@ -60,6 +60,6 @@ void render(SDL_Renderer* renderer, std::vector<Brick> bricks, Paddle& paddle, B
 	drawBricks(renderer, bricks);
 	drawPaddle(renderer, paddle);
 	drawBall(renderer, ball);
-	drawHitbox(renderer, ball.getHitbox());
+	//drawHitbox(renderer, ball.getHitbox());
 	SDL_RenderPresent(renderer);
 }
