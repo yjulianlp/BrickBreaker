@@ -18,7 +18,7 @@ void updatePaddle(Paddle& paddle, SDL_Event* event) {
 		}
 	}
 }
-void updateBall(Ball& ball, Paddle& paddle, float time) {
+void updateBall(Ball& ball, Paddle& paddle, std::vector<Brick> bricks, float time) {
 	std::vector<int> pos = ball.getCenter();
 	//std::cout << "current angle: " << ball.getAngle() << "\n";
 	ball.setXVelocity(ball.getSpeed() * cos(ball.getAngle()));
@@ -39,6 +39,24 @@ void updateBall(Ball& ball, Paddle& paddle, float time) {
 	int is_intersecting = checkBallRectIntersection(ball, paddle_rect);
 	if (is_intersecting) {
 		ball.setAngle(-ball.getAngle());
+	}
+
+	for (int i = 0; i < bricks.size(); i++) {
+		int is_hitting_block = checkBallRectIntersection(ball, bricks[i].getBrick());
+		switch (is_hitting_block) {
+		case 1: //left side
+		case 2: //right side
+			ball.setAngle(PI - ball.getAngle());
+			free(bricks[i].getBrick());
+			break;
+		case 3: //top
+		case 4: //bottom
+			ball.setAngle(-ball.getAngle());
+			free(bricks[i].getBrick());
+			break;
+		default:
+			break;
+		}
 	}
 
 

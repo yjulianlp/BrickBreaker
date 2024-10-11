@@ -42,7 +42,7 @@ int main(int argc, char* argv[]) {
 			}
 			updatePaddle(paddle, &event);
 		}
-		updateBall(ball, paddle, 1.0);
+		updateBall(ball, paddle, breakable_blocks, 1.0);
 		render(gRenderer, breakable_blocks, paddle, ball);
 
 		SDL_Delay(FRAME_DELAY);
