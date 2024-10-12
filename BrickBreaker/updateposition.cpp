@@ -5,6 +5,20 @@
 #include <cmath>
 #include <cstdlib>
 
+void normalizeAngle(Ball& ball) {
+	float temp_angle = ball.getAngle();
+
+	while (temp_angle > (2 * PI)) {
+		temp_angle -= (2 * PI);
+	}
+
+	while (temp_angle < -(2 * PI)) {
+		temp_angle += (2 * PI);
+	}
+
+	ball.setAngle(temp_angle);
+}
+
 void updatePaddle(Paddle& paddle, SDL_Event* event) {
 	const Uint8* pressed_keys = SDL_GetKeyboardState(NULL);
 	SDL_Rect* paddle_rectangle = paddle.getPaddle();
@@ -35,9 +49,11 @@ void updateBall(Ball& ball, Paddle& paddle, std::vector<Brick> bricks, float tim
 		ball.setAngle(-ball.getAngle());
 	}
 
+	normalizeAngle(ball);
+
 	SDL_Rect* paddle_rect = paddle.getPaddle();
 	int is_intersecting = checkBallRectIntersection(ball, paddle_rect);
-	float temp_angle;
+	float temp_angle, paddle_section, paddle_section_ranges[3];
 	switch (is_intersecting) {
 	case 1: //left side
 		ball.setAngle(PI - ball.getAngle());
@@ -48,9 +64,23 @@ void updateBall(Ball& ball, Paddle& paddle, std::vector<Brick> bricks, float tim
 		ball.setPosition((paddle_rect->x + paddle_rect->w) + ball.getRadius() + 5, pos[1]);
 		break;
 	case 3: //top
-		temp_angle = (-ball.getAngle()) + ((rand() % 31) - 15) * (PI / 180.0);
-		if (temp_angle == 0 || temp_angle == PI) {
-			temp_angle = -ball.getAngle();
+		paddle_section = (paddle_rect->w) / 3;
+		paddle_section_ranges[0] = paddle_rect->x;
+		paddle_section_ranges[1] = paddle_section_ranges[0] + paddle_section;
+		paddle_section_ranges[2] = paddle_section_ranges[1] + paddle_section;
+		temp_angle = -ball.getAngle();
+		if (pos[0] > paddle_section_ranges[2]) {
+			//right
+			std::cout << "hit right side of paddle\n";
+			temp_angle += 15 * (PI / 180.0);
+		}else if(pos[0] > paddle_section_ranges[1]) {
+			//middle
+			std::cout << "hit middle of paddle\n";
+		}
+		else {
+			//left
+			std::cout << "hit left side of paddle\n";
+			temp_angle -= 15 * (PI / 180.0);
 		}
 		ball.setAngle(temp_angle);
 		ball.setPosition(pos[0], paddle_rect->y - ball.getRadius() - 5);
@@ -89,6 +119,7 @@ int checkBallRectIntersection(Ball& ball, SDL_Rect* rect) {
 	
 	if (SDL_HasIntersection(ball_hitbox, rect)) {
 		std::cout << "checking for intersection\n";
+		std::cout << "current ball angle is: " << ball.getAngle() * (180 / PI) << "\n";
 		std::vector<int> close_pos = {ball_pos[0], ball_pos[1]};
 		//int close_x = ball_pos[0], close_y = ball_pos[1];
 		int rect_left_edge = rect->x;
