@@ -4,7 +4,7 @@
 
 void updatePaddle(Paddle& paddle, SDL_Event* event);
 
-int updateBall(Ball& ball, Paddle& paddle, std::vector<Brick> bricks, float time);
+std::vector<int> updateBall(Ball& ball, Paddle& paddle, std::vector<Brick> bricks, float time);
 
 int checkBallRectIntersection(Ball& ball, SDL_Rect* rect);
 

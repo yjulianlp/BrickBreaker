@@ -141,9 +141,9 @@
   <ItemGroup>
     <ClInclude Include="..\include\gameinfo.h" />
     <ClInclude Include="..\include\gameitems.h" />
+    <ClInclude Include="..\include\player.h" />
     <ClInclude Include="..\include\render.h" />
     <ClInclude Include="..\include\updateposition.h" />
-    <ClInclude Include="player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

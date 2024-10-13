@@ -44,7 +44,7 @@
     <ClInclude Include="..\include\updateposition.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="player.h">
+    <ClInclude Include="..\include\player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

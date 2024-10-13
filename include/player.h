@@ -18,4 +18,5 @@ public:
 	void addScore(int hit);
 	int getLives();
 	void setLives(int lives);
+	void updateLives(int change);
 };

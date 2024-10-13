@@ -38,7 +38,7 @@ int main(int argc, char* argv[]) {
 	Player player = Player("player_name", 0, 3);
 
 	render(gRenderer, breakable_blocks, paddle, ball);
-	int hit;
+	std::vector<int> info;
 	while (running) {
 		while (SDL_PollEvent(&event) != 0) {
 			if (event.type == SDL_QUIT) {
@@ -47,8 +47,9 @@ int main(int argc, char* argv[]) {
 			updatePaddle(paddle, &event);
 			
 		}
-		hit = updateBall(ball, paddle, breakable_blocks, 1.0);
-		player.addScore(hit);
+		info = updateBall(ball, paddle, breakable_blocks, 1.0);
+		player.addScore(info[0]);
+		player.updateLives(info[1]);
 		render(gRenderer, breakable_blocks, paddle, ball);
 
 		SDL_Delay(FRAME_DELAY);

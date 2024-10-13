@@ -34,3 +34,7 @@ int Player::getLives() {
 void Player::setLives(int new_lives) {
 	lives = new_lives;
 }
+
+void Player::updateLives(int change) {
+	lives += change;
+}

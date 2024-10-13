@@ -58,7 +58,7 @@ void updatePaddle(Paddle& paddle, SDL_Event* event) {
 	}
 }
 
-int updateBall(Ball& ball, Paddle& paddle, std::vector<Brick> bricks, float time) {
+std::vector<int> updateBall(Ball& ball, Paddle& paddle, std::vector<Brick> bricks, float time) {
 	ball.setXVelocity(ball.getSpeed() * cos(ball.getAngle()));
 	ball.setYVelocity(ball.getSpeed() * sin(ball.getAngle()));
 	std::vector<int> velo = ball.getVelocity();
@@ -68,12 +68,17 @@ int updateBall(Ball& ball, Paddle& paddle, std::vector<Brick> bricks, float time
 	assert(angle >= (0) && angle <= (2 * PI));
 	ball.movePosition(time);
 
+	int life = 0;
 	std::vector<int> pos = ball.getCenter();
 	if (pos[0]-BALL_RADIUS <= 0 || pos[0]+BALL_RADIUS >= SCREEN_WIDTH) {
 		ball.setAngle(PI - ball.getAngle());
 	}
-	if (pos[1] - BALL_RADIUS < 0 || pos[1] + BALL_RADIUS > SCREEN_HEIGHT) {
+	if (pos[1] - BALL_RADIUS < 0) {
 		ball.setAngle(-ball.getAngle());
+	}
+	else if (pos[1] + BALL_RADIUS > SCREEN_HEIGHT) {
+		ball.setAngle(-ball.getAngle());
+		life = -1;
 	}
 
 	normalizeAngle(ball);
@@ -146,7 +151,9 @@ int updateBall(Ball& ball, Paddle& paddle, std::vector<Brick> bricks, float time
 			ball.setAngle(temp_angle);
 		}
 	}
-	return hit;
+	std::vector<int> return_info = { hit, life };
+
+	return return_info;
 }
 
 int checkBallRectIntersection(Ball& ball, SDL_Rect* rect) {
