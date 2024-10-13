@@ -4,6 +4,30 @@
 #include <iostream>
 #include <cmath>
 #include <cstdlib>
+#include <cassert>
+
+void adjustAngle(float& angle) {
+	while (angle < 0) {
+		angle += (2 * PI);
+	}
+
+	angle *= (180 / PI);
+
+	if (angle < 30) {
+		angle = 45;
+	}
+	else if (angle <= 150 && angle >= 180) {
+		angle = 135;
+	}
+	else if (angle >= 180 && angle <= 210) {
+		angle = 225;
+	}
+	else if (angle >= 330) {
+		angle = 315;
+	}
+
+	angle *= (PI / 180);
+}
 
 void normalizeAngle(Ball& ball) {
 	float temp_angle = ball.getAngle();
@@ -39,6 +63,9 @@ void updateBall(Ball& ball, Paddle& paddle, std::vector<Brick> bricks, float tim
 	ball.setYVelocity(ball.getSpeed() * sin(ball.getAngle()));
 	std::vector<int> velo = ball.getVelocity();
 
+	float angle = ball.getAngle();
+	std::cout << ball.getAngle() * (180/PI) << "is current angle\n";
+	assert(angle >= (0) && angle <= (2 * PI));
 	ball.movePosition(time);
 
 	std::vector<int> pos = ball.getCenter();
@@ -53,14 +80,14 @@ void updateBall(Ball& ball, Paddle& paddle, std::vector<Brick> bricks, float tim
 
 	SDL_Rect* paddle_rect = paddle.getPaddle();
 	int is_intersecting = checkBallRectIntersection(ball, paddle_rect);
-	float temp_angle, paddle_section, paddle_section_ranges[3];
+	float temp_angle = ball.getAngle(), paddle_section, paddle_section_ranges[3];
 	switch (is_intersecting) {
 	case 1: //left side
-		ball.setAngle(PI - ball.getAngle());
+		temp_angle = PI - ball.getAngle();
 		ball.setPosition(paddle_rect->x - ball.getRadius() - 5, pos[1]);
 		break;
 	case 2: //right side
-		ball.setAngle(PI - ball.getAngle());
+		temp_angle = PI - ball.getAngle();
 		ball.setPosition((paddle_rect->x + paddle_rect->w) + ball.getRadius() + 5, pos[1]);
 		break;
 	case 3: //top
@@ -82,32 +109,38 @@ void updateBall(Ball& ball, Paddle& paddle, std::vector<Brick> bricks, float tim
 			std::cout << "hit left side of paddle\n";
 			temp_angle -= 15 * (PI / 180.0);
 		}
-		ball.setAngle(temp_angle);
 		ball.setPosition(pos[0], paddle_rect->y - ball.getRadius() - 5);
 		break;
 	case 4: //bottom
-		ball.setAngle(-ball.getAngle());
+		temp_angle = -ball.getAngle();
 		ball.setPosition(pos[0], (paddle_rect->y + paddle_rect->h) + ball.getRadius() + 5);
 		break;
 	default:
 		break;
 	}
 
+	adjustAngle(temp_angle);
+	ball.setAngle(temp_angle);
+
 	for (int i = 0; i < bricks.size(); i++) {
 		int is_hitting_block = checkBallRectIntersection(ball, bricks[i].getBrick());
-		switch (is_hitting_block) {
-		case 1: //left side
-		case 2: //right side
-			ball.setAngle(PI - ball.getAngle());
-			free(bricks[i].getBrick());
-			break;
-		case 3: //top
-		case 4: //bottom
-			ball.setAngle(-ball.getAngle());
-			free(bricks[i].getBrick());
-			break;
-		default:
-			break;
+		if (is_hitting_block) {
+			switch (is_hitting_block) {
+			case 1: //left side
+			case 2: //right side
+				temp_angle = PI - ball.getAngle();
+				free(bricks[i].getBrick());
+				break;
+			case 3: //top
+			case 4: //bottom
+				temp_angle = -ball.getAngle();
+				free(bricks[i].getBrick());
+				break;
+			default:
+				break;
+			}
+			adjustAngle(temp_angle);
+			ball.setAngle(temp_angle);
 		}
 	}
 }

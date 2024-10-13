@@ -9,3 +9,5 @@ void updateBall(Ball& ball, Paddle& paddle, std::vector<Brick> bricks, float tim
 int checkBallRectIntersection(Ball& ball, SDL_Rect* rect);
 
 void normalizeAngle(Ball& ball);
+
+void adjustAngle(float& angle);
