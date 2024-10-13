@@ -154,7 +154,6 @@ int checkBallRectIntersection(Ball& ball, SDL_Rect* rect) {
 		std::cout << "checking for intersection\n";
 		std::cout << "current ball angle is: " << ball.getAngle() * (180 / PI) << "\n";
 		std::vector<int> close_pos = {ball_pos[0], ball_pos[1]};
-		//int close_x = ball_pos[0], close_y = ball_pos[1];
 		int rect_left_edge = rect->x;
 		int rect_right_edge = rect_left_edge + (rect->w);
 
