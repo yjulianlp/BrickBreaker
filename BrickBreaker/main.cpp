@@ -4,6 +4,7 @@
 #include "gameitems.h"
 #include "render.h"
 #include "updateposition.h"
+#include "player.h"
 
 int main(int argc, char* argv[]) {
 	bool running = true;
@@ -32,6 +33,9 @@ int main(int argc, char* argv[]) {
 
 	//ball
 	Ball ball = Ball(BALL_RADIUS, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4, INITIAL_BALL_SPEED, INITIAL_BALL_ANGLE);
+
+	//player
+	Player player = Player("player_name", 0, 3);
 
 	render(gRenderer, breakable_blocks, paddle, ball);
 

@@ -24,7 +24,6 @@ private:
 	int y_velocity;
 	float angle;
 public:
-	Ball();
 	Ball(int radius, int center_x, int center_y, int speed, float angle);
 	SDL_Rect* getHitbox();
 	int getRadius();
