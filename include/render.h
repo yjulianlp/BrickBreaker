@@ -15,3 +15,5 @@ void drawBallPoints(SDL_Renderer* renderer, int center_x, int center_y, int x_di
 void drawHitbox(SDL_Renderer* renderer, SDL_Rect* hitbox);
 
 void render(SDL_Renderer* renderer, std::vector<Brick> bricks, Paddle& paddle, Ball& ball);
+
+void gameOver(SDL_Renderer* renderer);

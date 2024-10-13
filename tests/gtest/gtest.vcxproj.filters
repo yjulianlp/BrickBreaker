@@ -14,6 +14,10 @@
     </ClCompile>
     <ClCompile Include="paddletest.cpp" />
     <ClCompile Include="balltest.cpp" />
+    <ClCompile Include="..\..\BrickBreaker\player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="playertest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -27,6 +31,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\updateposition.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

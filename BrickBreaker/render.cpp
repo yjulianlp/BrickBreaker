@@ -63,3 +63,9 @@ void render(SDL_Renderer* renderer, std::vector<Brick> bricks, Paddle& paddle, B
 	//drawHitbox(renderer, ball.getHitbox());
 	SDL_RenderPresent(renderer);
 }
+
+void gameOver(SDL_Renderer* renderer) {
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 1);
+	SDL_RenderClear(renderer);
+	SDL_RenderPresent(renderer);
+}

@@ -103,16 +103,19 @@
   <ItemGroup>
     <ClInclude Include="..\..\include\gameinfo.h" />
     <ClInclude Include="..\..\include\gameitems.h" />
+    <ClInclude Include="..\..\include\player.h" />
     <ClInclude Include="..\..\include\render.h" />
     <ClInclude Include="..\..\include\updateposition.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\BrickBreaker\gameitems.cpp" />
+    <ClCompile Include="..\..\BrickBreaker\player.cpp" />
     <ClCompile Include="..\..\BrickBreaker\render.cpp" />
     <ClCompile Include="..\..\BrickBreaker\updateposition.cpp" />
     <ClCompile Include="balltest.cpp" />
     <ClCompile Include="paddletest.cpp" />
+    <ClCompile Include="playertest.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

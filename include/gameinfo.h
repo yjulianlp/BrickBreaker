@@ -12,3 +12,5 @@ constexpr auto INITIAL_BALL_ANGLE = (2*PI)/5;
 constexpr auto INITIAL_BALL_SPEED = 5.0;
 constexpr auto FRAME_DELAY = 1000 / 60;
 constexpr auto PADDLE_MOVEMENT_SPEED = 10;
+constexpr auto PLAYER_STARTING_LIVES = 3;
+constexpr auto PLAYER_STARTING_SCORE = 0;

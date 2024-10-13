@@ -35,7 +35,7 @@ int main(int argc, char* argv[]) {
 	Ball ball = Ball(BALL_RADIUS, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4, INITIAL_BALL_SPEED, INITIAL_BALL_ANGLE);
 
 	//player
-	Player player = Player("player_name", 0, 3);
+	Player player = Player("player_name", PLAYER_STARTING_SCORE, PLAYER_STARTING_LIVES);
 
 	render(gRenderer, breakable_blocks, paddle, ball);
 	std::vector<int> info;
@@ -50,6 +50,11 @@ int main(int argc, char* argv[]) {
 		info = updateBall(ball, paddle, breakable_blocks, 1.0);
 		player.addScore(info[0]);
 		player.updateLives(info[1]);
+		std::cout << "player lives is: " << player.getLives();
+		if (player.getLives() <= 0) {
+			gameOver(gRenderer);
+			break;
+		}
 		render(gRenderer, breakable_blocks, paddle, ball);
 
 		SDL_Delay(FRAME_DELAY);
