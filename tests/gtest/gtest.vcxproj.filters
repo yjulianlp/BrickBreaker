@@ -12,6 +12,8 @@
     <ClCompile Include="..\..\BrickBreaker\gameitems.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="paddletest.cpp" />
+    <ClCompile Include="balltest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

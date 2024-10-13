@@ -1,6 +1,7 @@
 #include "gameitems.h"
 #include "gameinfo.h"
 #include <vector>
+#include <cassert>
 
 Paddle::Paddle(int x, int y, int w, int h) {
 	paddle = (SDL_Rect*)malloc(sizeof(SDL_Rect));
@@ -92,6 +93,9 @@ void Ball::movePosition(float time) {
 }
 
 void Ball::setPosition(int new_x_pos, int new_y_pos) {
+	assert(new_x_pos >= 0);
+	assert(new_y_pos >= 0);
+
 	center_x = new_x_pos;
 	center_y = new_y_pos;
 	int hitbox_side_length = radius * 3;
