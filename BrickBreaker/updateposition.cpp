@@ -58,13 +58,13 @@ void updatePaddle(Paddle& paddle, SDL_Event* event) {
 	}
 }
 
-void updateBall(Ball& ball, Paddle& paddle, std::vector<Brick> bricks, float time) {
+int updateBall(Ball& ball, Paddle& paddle, std::vector<Brick> bricks, float time) {
 	ball.setXVelocity(ball.getSpeed() * cos(ball.getAngle()));
 	ball.setYVelocity(ball.getSpeed() * sin(ball.getAngle()));
 	std::vector<int> velo = ball.getVelocity();
 
 	float angle = ball.getAngle();
-	std::cout << ball.getAngle() * (180/PI) << "is current angle\n";
+	std::cout << "current ball angle is: " << ball.getAngle() * (180 / PI) << "\n";
 	assert(angle >= (0) && angle <= (2 * PI));
 	ball.movePosition(time);
 
@@ -122,6 +122,7 @@ void updateBall(Ball& ball, Paddle& paddle, std::vector<Brick> bricks, float tim
 	adjustAngle(temp_angle);
 	ball.setAngle(temp_angle);
 
+	int hit = 0;
 	for (int i = 0; i < bricks.size(); i++) {
 		int is_hitting_block = checkBallRectIntersection(ball, bricks[i].getBrick());
 		if (is_hitting_block) {
@@ -130,11 +131,13 @@ void updateBall(Ball& ball, Paddle& paddle, std::vector<Brick> bricks, float tim
 			case 2: //right side
 				temp_angle = PI - ball.getAngle();
 				free(bricks[i].getBrick());
+				hit++;
 				break;
 			case 3: //top
 			case 4: //bottom
 				temp_angle = -ball.getAngle();
 				free(bricks[i].getBrick());
+				hit++;
 				break;
 			default:
 				break;
@@ -143,6 +146,7 @@ void updateBall(Ball& ball, Paddle& paddle, std::vector<Brick> bricks, float tim
 			ball.setAngle(temp_angle);
 		}
 	}
+	return hit;
 }
 
 int checkBallRectIntersection(Ball& ball, SDL_Rect* rect) {

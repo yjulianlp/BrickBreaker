@@ -38,7 +38,7 @@ int main(int argc, char* argv[]) {
 	Player player = Player("player_name", 0, 3);
 
 	render(gRenderer, breakable_blocks, paddle, ball);
-
+	int hit;
 	while (running) {
 		while (SDL_PollEvent(&event) != 0) {
 			if (event.type == SDL_QUIT) {
@@ -47,7 +47,8 @@ int main(int argc, char* argv[]) {
 			updatePaddle(paddle, &event);
 			
 		}
-		updateBall(ball, paddle, breakable_blocks, 1.0);
+		hit = updateBall(ball, paddle, breakable_blocks, 1.0);
+		player.addScore(hit);
 		render(gRenderer, breakable_blocks, paddle, ball);
 
 		SDL_Delay(FRAME_DELAY);

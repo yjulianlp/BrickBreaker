@@ -15,6 +15,7 @@ public:
 	void setName(std::string name);
 	int getScore();
 	void setScore(int score);
+	void addScore(int hit);
 	int getLives();
 	void setLives(int lives);
 };

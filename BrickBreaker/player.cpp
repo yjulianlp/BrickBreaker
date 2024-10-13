@@ -1,7 +1,6 @@
 #include "player.h"
 #include <string>
 
-
 Player::Player(std::string player_name, int player_score, int player_lives) {
 	name = player_name;
 	score = player_score;
@@ -22,6 +21,10 @@ int Player::getScore() {
 
 void Player::setScore(int new_score) {
 	score = new_score;
+}
+
+void Player::addScore(int hit) {
+	score += hit;
 }
 
 int Player::getLives() {
