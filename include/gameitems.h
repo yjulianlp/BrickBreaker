@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL.h>
 #include <vector>
+#include "player.h"
 
 class Paddle {
 private:
@@ -31,6 +32,7 @@ public:
 	std::vector<int> getVelocity();
 	int getSpeed();
 	void setSpeed(int new_speed);
+	void adjustSpeed(Player& player);
 	void setXVelocity(int new_x_velocity);
 	void setYVelocity(int new_y_velocity);
 	float getAngle();

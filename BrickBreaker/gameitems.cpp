@@ -2,6 +2,7 @@
 #include "gameinfo.h"
 #include <vector>
 #include <cassert>
+#include "player.h"
 
 Paddle::Paddle(int x, int y, int w, int h) {
 	paddle = (SDL_Rect*)malloc(sizeof(SDL_Rect));
@@ -74,6 +75,13 @@ int Ball::getSpeed() {
 
 void Ball::setSpeed(int new_speed) {
 	speed = new_speed;
+}
+
+void Ball::adjustSpeed(Player& player) {
+	speed = 5 + (player.getScore() / SPEED_INCREASE_SCORE_AMOUNT);
+	if (speed >= MAX_BALL_SPEED) {
+		speed = MAX_BALL_SPEED;
+	}
 }
 
 float Ball::getAngle() {

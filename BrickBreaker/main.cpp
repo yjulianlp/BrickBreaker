@@ -48,7 +48,10 @@ int main(int argc, char* argv[]) {
 			
 		}
 		info = updateBall(ball, paddle, breakable_blocks, 1.0);
-		player.addScore(info[0]);
+		if (info[0] > 0) {
+			player.addScore(info[0]);
+			ball.adjustSpeed(player);
+		}
 		player.updateLives(info[1]);
 		std::cout << "player lives is: " << player.getLives();
 		if (player.getLives() <= 0) {
