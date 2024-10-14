@@ -52,7 +52,8 @@ int main(int argc, char* argv[]) {
 		player.updateLives(info[1]);
 		std::cout << "player lives is: " << player.getLives();
 		if (player.getLives() <= 0) {
-			gameOver(gRenderer);
+			gameOver(gRenderer, gWindow);
+			SDL_Delay(5000);
 			break;
 		}
 		render(gRenderer, breakable_blocks, paddle, ball);

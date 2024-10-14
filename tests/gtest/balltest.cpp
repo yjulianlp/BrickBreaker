@@ -21,6 +21,7 @@ protected:
 		ball.setAngle(INITIAL_BALL_ANGLE);
 	}
 };
+
 TEST_F(BallTest, InitialBallPositionTest) {
 	std::vector<int> pos = ball.getCenter();
 	EXPECT_EQ(pos[0], SCREEN_WIDTH / 2);

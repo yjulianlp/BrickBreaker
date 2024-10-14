@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\vclib\include;C:\dev\BrickBreaker\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\vclib\include;C:\dev\BrickBreaker\include;C:\dev\BrickerBreaker\images;$(IncludePath)</IncludePath>
     <LibraryPath>C:\vclib\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -144,6 +144,9 @@
     <ClInclude Include="..\include\player.h" />
     <ClInclude Include="..\include\render.h" />
     <ClInclude Include="..\include\updateposition.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\images\gameover.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

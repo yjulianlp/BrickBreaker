@@ -1,5 +1,6 @@
 #include <vector>
 #include "gameitems.h"
+#include "gameinfo.h"
 
 void drawBrick(SDL_Renderer* renderer, Brick& brick) {
 	SDL_RenderDrawRect(renderer, brick.getBrick());
@@ -64,8 +65,15 @@ void render(SDL_Renderer* renderer, std::vector<Brick> bricks, Paddle& paddle, B
 	SDL_RenderPresent(renderer);
 }
 
-void gameOver(SDL_Renderer* renderer) {
+void gameOver(SDL_Renderer* renderer, SDL_Window* window) {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 1);
 	SDL_RenderClear(renderer);
 	SDL_RenderPresent(renderer);
+	SDL_Surface* gameover_img = SDL_LoadBMP("../images/gameover.bmp");
+	int textpos_x = ((SCREEN_WIDTH - gameover_img->w) / 2);
+	int textpos_y = ((SCREEN_HEIGHT - gameover_img->h) / 3);
+	SDL_Rect gameover_rect = { textpos_x, textpos_y, gameover_img->w, gameover_img->h };
+	
+	SDL_BlitSurface(gameover_img, NULL, SDL_GetWindowSurface(window), &gameover_rect);
+	SDL_UpdateWindowSurface(window);
 }
