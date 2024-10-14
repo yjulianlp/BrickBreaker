@@ -64,7 +64,7 @@ std::vector<int> updateBall(Ball& ball, Paddle& paddle, std::vector<Brick> brick
 	std::vector<int> velo = ball.getVelocity();
 
 	float angle = ball.getAngle();
-	std::cout << "current ball angle is: " << ball.getAngle() * (180 / PI) << "\n";
+	//std::cout << "current ball angle is: " << ball.getAngle() * (180 / PI) << "\n";
 	assert(angle >= (0) && angle <= (2 * PI));
 	ball.movePosition(time);
 

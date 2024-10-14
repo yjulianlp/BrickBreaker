@@ -3,6 +3,7 @@
 #include "gameinfo.h"
 #include "render.h"
 #include "updateposition.h"
+#include "player.h"
 #include <iostream>
 #include <vector>
 
@@ -70,4 +71,25 @@ TEST_F(BallMethodTest, BallSetPositionTest) {
 	std::vector<int> pos = ball.getCenter();
 	EXPECT_EQ(pos[0], 1);
 	EXPECT_EQ(pos[1], 3);
+}
+
+TEST_F(BallMethodTest, BallSetVelocityTest) {
+	ball.setXVelocity(111);
+	ball.setYVelocity(123);
+	std::vector<int> velocity = ball.getVelocity();
+	EXPECT_EQ(velocity[0], 111);
+	EXPECT_EQ(velocity[1], 123);
+}
+
+TEST_F(BallMethodTest, BallAdjustSpeedTest) {
+	Player test_player = Player("test", 7, PLAYER_STARTING_LIVES);
+	Player test_player2 = Player("test2", 5, PLAYER_STARTING_LIVES);
+	Player test_player3 = Player("test3", 10000, PLAYER_STARTING_LIVES);
+
+	ball.adjustSpeed(test_player);
+	EXPECT_EQ(ball.getSpeed(), 7);
+	ball.adjustSpeed(test_player2);
+	EXPECT_EQ(ball.getSpeed(), 6);
+	ball.adjustSpeed(test_player3);
+	EXPECT_EQ(ball.getSpeed(), MAX_BALL_SPEED);
 }

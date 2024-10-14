@@ -53,7 +53,6 @@ int main(int argc, char* argv[]) {
 			ball.adjustSpeed(player);
 		}
 		player.updateLives(info[1]);
-		std::cout << "player lives is: " << player.getLives();
 		if (player.getLives() <= 0) {
 			gameOver(gRenderer, gWindow);
 			SDL_Delay(5000);
